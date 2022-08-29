@@ -10,7 +10,7 @@
         <p class="login-box-msg">Ingrese sus datos de Acceso</p>
         <form  (ngSubmit)="login()" [formGroup]="loginForm">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" formControlName="email" placeholder="Usuario" required>
+            <input type="text" class="form-control" formControlName="usuario" placeholder="Usuario" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -27,7 +27,7 @@
           </div>
           
           <div class="row">
-            <div class="col-4">
+            <div class="col-6">
               <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">Ingresar</button>
             </div>
           </div>

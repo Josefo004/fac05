@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TLogin } from 'src/app/interfaces/interfaces';
+import { SideBarService } from 'src/app/shared/services/side-bar.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,31 +11,34 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
   styles: [
   ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   hayError : boolean = false;
 
   loginForm = this.fb.group({
-    email: ['juan.carrasco', [Validators.required]],
-    password: ['111111',[Validators.required]],
-    sucursal: [0,[Validators.required]],
-    remember:[false]
+    usuario: ['juan.carrasco', [Validators.required]],
+    password: ['111111',[Validators.required]]
   });
 
-
-  constructor(private fb: UntypedFormBuilder) { }
-
-  ngOnInit(): void {
-  }
+  constructor(private fb: UntypedFormBuilder,
+              private authService: AuthService,
+              private router: Router) { }
 
   login(){
     this.hayError = false;
-    const usulogin  = {
-      usuario : this.loginForm.value.email,
-      passwd : this.loginForm.value.password,
-      sucursal : this.loginForm.value.sucursal
-    };
-    console.log(usulogin);
+    const loginO: TLogin = {
+      usuario:  this.loginForm.value.usuario,
+      password: this.loginForm.value.password
+    }
+    console.log(loginO);
+
+    this.authService.login(loginO)
+      .subscribe(resp =>{
+        this.router.navigate([`./gate`]);
+      }, (error)=>{
+        this.hayError=true;
+        console.error(error);
+      })
   }
 
 }

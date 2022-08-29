@@ -1,0 +1,11 @@
+<section>
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <app-input
+        placeholder="Nro. Documento ..."
+        [terminoIn]="termino"
+        (onEnter)="buscar( $event )"
+        (onDebounce)="sugerencias( $event )"></app-input>
+    </div>
+  </div>
+</section>
