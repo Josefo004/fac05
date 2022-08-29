@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonasLocalService } from '../../services/personas-local.service';
 
 @Component({
   selector: 'app-principal',
@@ -10,18 +11,21 @@ export class PrincipalComponent implements OnInit {
 
   termino = '';
 
-  constructor() { }
+  constructor(private personasLocalService: PersonasLocalService) { }
 
   ngOnInit(): void {
   }
 
   buscar(termino: string){
-    console.log(termino);
+    this.personasLocalService.buscarPersona(termino)
+      .subscribe(resp => console.log(resp));
   }
 
   sugerencias(termino: string){
-    console.log(termino);
-    
+
+    // retornar solo cuando hay ingresados
+    // this.personasLocalService.buscarPersona(termino)
+    //   .subscribe(resp => console.log(resp));
   }
 
 }

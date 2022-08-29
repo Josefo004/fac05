@@ -19,7 +19,7 @@ export interface Tusuario {
   persona_id: number;
 }
 
-export interface Tpersonas {
+export interface Tpersona {
   id:            number;
   nro_documento: string;
   nombre:        string;
@@ -28,3 +28,24 @@ export interface Tpersonas {
   cargo:         string;
   dependencia:   string;
 }
+
+//tipo JULIO API
+export interface TJulio {
+  nombre:        string;
+  ci:            string;
+  expedido:      string;
+  celular:       string;
+  email:         string;
+  biometrico:    string | null;
+  position_id:   number | null;
+  dependence_id: number | null;
+  dependence:    Dependence | null;
+  position:      Dependence | null;
+}
+
+export interface Dependence {
+  id:     number;
+  nombre: string;
+}
+
+// End tipo Julio
