@@ -25,23 +25,23 @@ export class AuthService {
       return of(false);
     }
     
-    let urlLogin = `${this.apiUrl}/usuarios/${localStorage.getItem('token')}`;
-    return this.http.get<Tusuario>(urlLogin)
+    let urlLogin = `${this.apiUrl}/api/usuarios/${localStorage.getItem('token')}`;
+    return this.http.get<Tusuario[]>(urlLogin)
       .pipe(
         map(resp =>{
-          this._usurio = resp;
+          this._usurio = resp[0];
           return true;
         })
       );
   }
   
   login(loginF:TLogin){
-    let urlLogin = `${this.apiUrl}/usuarios?usuario=${loginF.usuario}&password=${loginF.password}`;
-    return this.http.get<Tusuario[]>(urlLogin) 
+    let urlLogin = `${this.apiUrl}/api/usuarios`;
+    return this.http.post<Tusuario[]>(urlLogin,loginF) 
       .pipe(
         tap(resp => {
           this._usurio = resp[0];
-          localStorage.setItem('token', resp[0].id+'');
+          localStorage.setItem('token', resp[0].usuid+'');
           //LEER PERMISOS
         })
       );

@@ -7,7 +7,6 @@
       "permisos": ["LOGEO"],
       "submenu": [
         {"titulo": "Ingresos", "icono": "", "url":"/gate/principal", "permisos": [""]},
-        {"titulo": "Permitir", "icono": "", "url":"/gate/permitir", "permisos": [""]},
         {"titulo": "Reporte", "icono": "", "url":"/gate/reporte", "permisos": [""]}
       ]
     },

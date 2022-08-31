@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SideBarService {
-  private apiUrl : string = environment.apiUrl;
+  private apiUrl : string = environment.apiLocal;
   private  _menu : Tmenu [] = [];
 
   get menu() {

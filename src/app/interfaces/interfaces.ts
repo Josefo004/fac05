@@ -12,22 +12,26 @@ export interface TLogin {
 }
 
 export interface Tusuario {
-  id:         number;
-  usuario:    string;
-  password:   string;
-  nombre:     string;
-  persona_id: number;
+  usuid:     number;
+  usuario:   string;
+  clave:     string;
+  perid:     number;
+  bloqueado: boolean;
+  nombre:    string;
 }
 
 export interface Tpersona {
-  id:            number;
-  nro_documento: string;
-  nombre:        string;
-  ap_paterno:    string;
-  ap_materno:    string;
-  cargo:         string;
-  dependencia:   string;
+  perid:     number;
+  documento: string;
+  paterno:   string;
+  materno:   string;
+  nombre:    string;
 }
+
+
+
+
+
 
 //tipo JULIO API
 export interface TJulio {

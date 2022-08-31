@@ -9,13 +9,13 @@ import { Tpersona } from '../../interfaces/interfaces'
 })
 export class PersonasLocalService {
 
-  private apiUrl  : string = environment.apiUrl;
+  private apiUrl : string = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   //Buscar Persona por CI
-  buscarPersona(ci: string){
-    let urlBuscarPersona = `${this.apiUrl}/personas?nro_documento_like=${ci}`;
+  buscarPersona(termino: string){
+    let urlBuscarPersona = `${this.apiUrl}/api/personas/${termino}`;
     return this.http.get<Tpersona[]>(urlBuscarPersona)
       .pipe(catchError(error => of([])))
   }

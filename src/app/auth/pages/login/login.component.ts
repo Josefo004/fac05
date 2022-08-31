@@ -16,7 +16,7 @@ export class LoginComponent {
   hayError : boolean = false;
 
   loginForm = this.fb.group({
-    usuario: ['juan.carrasco', [Validators.required]],
+    usuario: ['jose.mendoza', [Validators.required]],
     password: ['111111',[Validators.required]]
   });
 
