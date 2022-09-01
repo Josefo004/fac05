@@ -11,21 +11,22 @@ export interface TLogin {
   password: string;
 }
 
+// MIO
 export interface Tusuario {
   usuid:     number;
   usuario:   string;
   clave:     string;
   perid:     number;
   bloqueado: boolean;
-  nombre:    string;
+  Persona:   Tpersona;
 }
 
 export interface Tpersona {
   perid:     number;
   documento: string;
+  nombre:    string;
   paterno:   string;
   materno:   string;
-  nombre:    string;
 }
 
 
