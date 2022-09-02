@@ -4,8 +4,7 @@ import { PersonasLocalService } from '../../services/personas-local.service';
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class PrincipalComponent implements OnInit {
 
@@ -19,13 +18,6 @@ export class PrincipalComponent implements OnInit {
   buscar(termino: string){
     this.personasLocalService.buscarPersona(termino)
       .subscribe(resp => console.log(resp));
-  }
-
-  sugerencias(termino: string){
-
-    // retornar solo cuando hay ingresados
-    // this.personasLocalService.buscarPersona(termino)
-    //   .subscribe(resp => console.log(resp));
   }
 
 }

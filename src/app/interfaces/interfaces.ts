@@ -18,21 +18,17 @@ export interface Tusuario {
   clave:     string;
   perid:     number;
   bloqueado: boolean;
-  Persona:   Tpersona;
+  Persona:   TPersona;
 }
 
-export interface Tpersona {
+export interface TPersona {
   perid:     number;
   documento: string;
   nombre:    string;
   paterno:   string;
   materno:   string;
+  nombrec:   string;
 }
-
-
-
-
-
 
 //tipo JULIO API
 export interface TJulio {
@@ -52,5 +48,9 @@ export interface Dependence {
   id:     number;
   nombre: string;
 }
-
 // End tipo Julio
+
+export interface TresultatoPersona {
+  tipo: number;
+  data: TPersona[] | TJulio[] | [];
+}

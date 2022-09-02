@@ -31,10 +31,10 @@ export class InputComponent implements OnInit {
   }
 
   buscar(){
-    if(this.terminoIn.length>0) {this.onEnter.emit( this.terminoIn )};
+    if(this.terminoIn.length>0) {this.onEnter.emit( this.terminoIn.toUpperCase() )};
   }
 
   teclaPrecionada(){
-    if (this.terminoIn.length>0) {this.debouncer.next( this.terminoIn )};
+    if (this.terminoIn.length>0) {this.debouncer.next( this.terminoIn.toUpperCase() )};
   }
 }

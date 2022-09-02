@@ -20,25 +20,5 @@
         {"titulo": "Buscar Usuario", "icono": "", "url":"/configurar/permitir", "permisos": [""]}
       ]
     }
-  ],
-  "usuarios" : [
-    {
-      "id": 1,
-      "usuario": "juan.carrasco",
-      "password": "111111",
-      "nombre": "Juan José Carrasco Ortega",
-      "persona_id": 1
-    }
-  ],
-  "personas" : [
-    {
-      "id": 1,
-      "nro_documento": "895623",
-      "nombre": "Juan José",
-      "ap_paterno": "Carrasco",
-      "ap_materno": "Ortega",
-      "cargo": "",
-      "dependencia": ""
-    }
   ]
 }
