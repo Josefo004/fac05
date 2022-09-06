@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { Tmenu } from 'src/app/interfaces/interfaces';
 import { SideBarService } from '../../services/side-bar.service';
 
 declare var $: any;
@@ -13,12 +14,10 @@ declare var $: any;
 })
 export class SideBarComponent implements OnInit {
 
+  menuItems:Tmenu[]=[];
+
   get auth(){
     return this.authService.auth;
-  }
-
-  get menuItems(){
-    return this.sideBarService.menu;
   }
 
   constructor(private authService: AuthService,
@@ -26,8 +25,13 @@ export class SideBarComponent implements OnInit {
               private sideBarService: SideBarService) { }
 
   ngOnInit(): void {
-    this.sideBarService.loadMenu().subscribe();
+    this.menu();
     $('[data-widget="treeview"]').Treeview('init');
+  }
+
+  public menu(){
+    this.menuItems = [];
+    this.menuItems = this.sideBarService.menu;
   }
   
   logout(){
