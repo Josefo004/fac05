@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -14,9 +15,11 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxPermissionsModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [NgxPermissionsModule]
 })
 export class AppModule { }

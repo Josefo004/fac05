@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { TLogin, Tusuario } from '../../interfaces/interfaces';
+import { PermisosService } from './permisos.service';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +19,17 @@ export class AuthService {
     return {...this._usurio};
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private permisos: PermisosService,
+              private ngxpermisos: NgxPermissionsService) { }
 
 
   estaLogeado():Observable<boolean>{
     if(!localStorage.getItem('token')){
       return of(false);
     }
+    let perm = localStorage.getItem('permisos');
+    if( perm ) {this.ngxpermisos.loadPermissions(JSON.parse(perm));}
     
     let urlLogin = `${this.apiUrl}/api/usuarios/${localStorage.getItem('token')}`;
     return this.http.get<Tusuario[]>(urlLogin)
@@ -42,7 +48,7 @@ export class AuthService {
         tap(resp => {
           this._usurio = resp[0];
           localStorage.setItem('token', resp[0].usuid+'');
-          //LEER PERMISOS
+          this.permisos.leer_permisos(resp[0].usuid).subscribe();
         })
       );
   }

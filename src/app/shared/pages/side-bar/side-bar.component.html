@@ -21,7 +21,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item" *ngFor="let item of menuItems">
-            <a class="nav-link">
+            <a class="nav-link" *ngxPermissionsOnly="item.permisos">
               <i class="{{ item.icono }}"></i>
               <p>
                 {{ item.titulo }}

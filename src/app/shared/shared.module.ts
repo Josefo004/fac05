@@ -9,6 +9,7 @@ import { FooterComponent } from './pages/footer/footer.component';
 import { BreadCrumbsComponent } from './pages/bread-crumbs/bread-crumbs.component';
 import { HomeComponent } from './pages/home/home.component';
 import { InputComponent } from './pages/input/input.component';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 
 
@@ -24,7 +25,8 @@ import { InputComponent } from './pages/input/input.component';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    NgxPermissionsModule
   ],
   exports: [
     HomeComponent,

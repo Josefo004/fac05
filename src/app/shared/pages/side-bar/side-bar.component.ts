@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { PermisosService } from 'src/app/auth/services/permisos.service';
 import { Tmenu } from 'src/app/interfaces/interfaces';
 import { SideBarService } from '../../services/side-bar.service';
 
@@ -22,7 +23,8 @@ export class SideBarComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private sideBarService: SideBarService) { }
+              private sideBarService: SideBarService,
+              private permisosService: PermisosService) { }
 
   ngOnInit(): void {
     this.menu();
@@ -35,6 +37,7 @@ export class SideBarComponent implements OnInit {
   }
   
   logout(){
+    this.permisosService.limpiar_permisos();
     this.authService.logout();
     this.router.navigate(['/']);
   }

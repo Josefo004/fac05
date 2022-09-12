@@ -31,6 +31,11 @@ export interface TPersona {
   biometrico: number | null;
 }
 
+export interface Tpermiso {
+  usuid:    number;
+  permisos: string[];
+}
+
 //tipo JULIO API
 export interface TJulio {
   nombre:        string;
