@@ -219,15 +219,15 @@ export class ImprimirService {
       let tparcial = dx.precioUnitario * dx.cantidad;
       posy = posy + 3;
       doc.setFontSize(8).setFont('courier', 'bold').text('00000'+dx.id+' - '+dx.producto, 10, posy, {align:'left'});
-      doc.setFontSize(7).setFont('courier', 'normal').text(dx.cantidad+' - '+dx.unidad, 100, posy, {align:'left'});
-      doc.setFontSize(7).setFont('courier', 'normal').text(dx.precioUnitario.toFixed(2)+'', 160, posy, {align:'right'});
-      doc.setFontSize(7).setFont('courier', 'normal').text(tparcial.toFixed(2)+'', 190, posy, {align:'right'});
+      doc.setFontSize(7).setFont('courier', 'normal').text(dx.cantidad+' - '+dx.unidad, 125, posy, {align:'left'});
+      doc.setFontSize(7).setFont('courier', 'normal').text(dx.precioUnitario.toFixed(2)+'', 180, posy, {align:'right'});
+      doc.setFontSize(7).setFont('courier', 'normal').text(tparcial.toFixed(2)+'', 205, posy, {align:'right'});
     }
 
     function total(tt:number){
       posy = posy + 4;
-      doc.setFontSize(9).setFont('courier', 'bold').text('TOTAL', 150, posy, {align:'left'});
-      doc.setFontSize(7).setFont('courier', 'bold').text(tt.toFixed(2), 190, posy, {align:'right'});
+      doc.setFontSize(9).setFont('courier', 'bold').text('TOTAL', 180, posy, {align:'right'});
+      doc.setFontSize(7).setFont('courier', 'bold').text(tt.toFixed(2), 205, posy, {align:'right'});
     }
 
     function lineaDash(){
@@ -240,7 +240,7 @@ export class ImprimirService {
     function linea(){
       posy = posy + 1;
       doc.setLineDashPattern([0,0],1);
-      doc.line(4,posy,210,posy);
+      doc.line(10,posy,205,posy);
     }
 
     doc.setFontSize(20).setFont('courier', 'bold').text('FACTURA', 10, 20, {align: 'left'});
@@ -272,9 +272,9 @@ export class ImprimirService {
     doc.setFontSize(12).setFont('courier', 'bold').text('DETALLE', ancho/2, posy, {align: 'center'});
     posy = posy + 3;
     doc.setFontSize(8).setFont('courier', 'bold').text('PRODUCTO', 10, posy, {align:'left'});
-    doc.setFontSize(8).setFont('courier', 'bold').text('CANTIDAD', 10, posy, {align:'left'});
-    doc.setFontSize(8).setFont('courier', 'bold').text('PRECIO UNITARIO', 160, posy, {align:'right'});
-    doc.setFontSize(8).setFont('courier', 'bold').text('SUB TOTAL', 190, posy, {align:'right'});
+    doc.setFontSize(8).setFont('courier', 'bold').text('CANTIDAD', 125, posy, {align:'left'});
+    doc.setFontSize(8).setFont('courier', 'bold').text('PRECIO UNITARIO', 180, posy, {align:'right'});
+    doc.setFontSize(8).setFont('courier', 'bold').text('SUB TOTAL', 205, posy, {align:'right'});
     linea();
     let k = this.detalleVenta.length;
     for (let i = 0; i < k; i++) 
