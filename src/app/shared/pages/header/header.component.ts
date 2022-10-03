@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavegarService } from 'src/app/navegar/services/navegar.service';
 
 @Component({
   selector: 'app-header',
@@ -6,11 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
-  constructor() { }
+  get sucursalN(){
+    return this.navegarService.sucursalN;
+  }
+
+  get puntoVentaN(){
+    return this.navegarService.puntoVentaN;
+  }
+
+  constructor(private navegarService:NavegarService,
+              private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  irAPuntosVenta(ids:string){
+    //console.log(`./navegar/puntoventa/${ids}`);
+    this.navegarService.limpiarP();
+    this.router.navigate([`./navegar/puntoventa/${ids}`]);
   }
 
 }

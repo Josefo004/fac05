@@ -10,6 +10,7 @@ import { BreadCrumbsComponent } from './pages/bread-crumbs/bread-crumbs.componen
 import { HomeComponent } from './pages/home/home.component';
 import { InputComponent } from './pages/input/input.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { OopsPageComponent } from './pages/oops-page/oops-page.component';
 
 
 
@@ -20,7 +21,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     FooterComponent,
     BreadCrumbsComponent,
     HomeComponent,
-    InputComponent
+    InputComponent,
+    OopsPageComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
   ],
   exports: [
     HomeComponent,
-    InputComponent
+    InputComponent,
+    OopsPageComponent
   ]
 })
 export class SharedModule { }

@@ -21,7 +21,7 @@ export class PermisosService {
 
   leer_permisos(id:number){
     console.log('ID', id);
-    let urlPermisos = `${this.apiUrl}/api/permisos/${id}`;
+    let urlPermisos = `${this.apiUrl}/rolpermisos?id_usuario=${id}`;
     return this.http.get<Tpermiso[]>(urlPermisos)
       .pipe(
         tap(resp => {

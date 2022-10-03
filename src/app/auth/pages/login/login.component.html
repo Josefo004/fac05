@@ -2,7 +2,7 @@
   <div class="login-box">
     <div class="login-logo">
       <img src="../assets/img/logo_app_gadch.png" alt="GADCH" height="60px" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light"></span>
+      <span class="brand-text font-weight-light">SFV</span>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -10,7 +10,7 @@
         <p class="login-box-msg">Ingrese sus datos de Acceso</p>
         <form  (ngSubmit)="login()" [formGroup]="loginForm">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" formControlName="usuario" placeholder="Usuario" required>
+            <input type="text" class="form-control" formControlName="email" placeholder="Usuario de Sistemaa" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -25,7 +25,20 @@
               </div>
             </div>
           </div>
-          
+          <!-- <div class="input-group mb-3 d-none"> -->
+          <div class="input-group mb-3">
+            <select class="form-control" formControlName="sucursal" required>
+              <option *ngFor="let item of sucItems; index as i"
+                [value] = "item.id"
+                >{{ item.nombre }}
+              </option>
+            </select>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-caret-down"></span>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-6">
               <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">Ingresar</button>
@@ -41,8 +54,6 @@
           </button>
         </div>
       </div>
-      <!-- /.login-card-body -->
     </div>
   </div>
-  <!-- /.login-box -->
 </div>

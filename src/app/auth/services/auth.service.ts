@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { TLogin, Tusuario } from '../../interfaces/interfaces';
+import { TLogin, TUsuario } from '../../interfaces/interfaces';
 import { PermisosService } from './permisos.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 
@@ -12,11 +12,11 @@ import { NgxPermissionsService } from 'ngx-permissions';
 })
 export class AuthService {
 
-  private apiUrl  : string = environment.apiUrl;
-  private _usurio : Tusuario | undefined;
+  private apiUrl   : string = environment.apiUrl;
+  private _usuario : TUsuario | undefined;
 
   get auth() {
-    return {...this._usurio};
+    return {...this._usuario};
   }
 
   constructor(private http: HttpClient,
@@ -31,30 +31,30 @@ export class AuthService {
     let perm = localStorage.getItem('permisos');
     if( perm ) {this.ngxpermisos.loadPermissions(JSON.parse(perm));}
     
-    let urlLogin = `${this.apiUrl}/api/usuarios/${localStorage.getItem('token')}`;
-    return this.http.get<Tusuario[]>(urlLogin)
+    let urlLogin = `${this.apiUrl}/usuarios/${localStorage.getItem('token')}`;
+    return this.http.get<TUsuario>(urlLogin)
       .pipe(
         map(resp =>{
-          this._usurio = resp[0];
+          this._usuario = resp;
           return true;
         })
       );
   }
-  
-  login(loginF:TLogin){
-    let urlLogin = `${this.apiUrl}/api/usuarios`;
-    return this.http.post<Tusuario[]>(urlLogin,loginF) 
+
+  login(bu:TLogin){
+    let urlLogin = `${this.apiUrl}/usuarios?usuario=${bu.usuario}&password=${bu.password}`;
+    return this.http.get<TUsuario[]>(urlLogin)
       .pipe(
         tap(resp => {
-          this._usurio = resp[0];
-          localStorage.setItem('token', resp[0].usuid+'');
-          this.permisos.leer_permisos(resp[0].usuid).subscribe();
+          this._usuario = resp[0];
+          localStorage.setItem('token', resp[0].id+'');
+          this.permisos.leer_permisos(resp[0].id).subscribe();
         })
-      );
+      )
   }
 
   logout(){
-    this._usurio = undefined;
+    this._usuario = undefined;
     localStorage.removeItem('token');
   }
 }

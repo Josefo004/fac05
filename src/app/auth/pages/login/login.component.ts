@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TLogin } from 'src/app/interfaces/interfaces';
-import { SideBarService } from 'src/app/shared/services/side-bar.service';
+import { TLogin, Tsucursal } from 'src/app/interfaces/interfaces';
+import { NavegarService } from 'src/app/navegar/services/navegar.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -11,34 +11,60 @@ import { AuthService } from '../../services/auth.service';
   styles: [
   ]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
+  sucItems!: Tsucursal[];
   hayError : boolean = false;
+  unaSucursal!: Tsucursal;
 
   loginForm = this.fb.group({
-    usuario: ['jose.mendoza', [Validators.required]],
-    password: ['111111',[Validators.required]]
+    email:    ['juan.carrasco', [Validators.required]],
+    password: ['111111',[Validators.required]],
+    sucursal: [0],
+    remember: [false]
   });
 
   constructor(private fb: UntypedFormBuilder,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private navegarService: NavegarService) { }
+  
+  ngOnInit(): void {
+    this.navegarService.allSucursales()
+      .subscribe( sucrs => this.sucItems = sucrs)
+  }
 
   login(){
     this.hayError = false;
-    const loginO: TLogin = {
-      usuario:  this.loginForm.value.usuario,
-      password: this.loginForm.value.password
-    }
-    console.log(loginO);
-
-    this.authService.login(loginO)
-      .subscribe(resp =>{
-        this.router.navigate([`./gate`]);
-      }, (error)=>{
-        this.hayError=true;
+    const usulogin : TLogin = {
+      usuario  : this.loginForm.value.email,
+      password : this.loginForm.value.password,
+      sucursal : this.loginForm.value.sucursal
+    };
+    console.log(usulogin);
+    this.authService.login(usulogin)
+      .subscribe(resp => {
+        console.log(resp);
+        if (usulogin.sucursal>0) {
+          this.navegarService.unaSucursal(usulogin.sucursal)
+            .subscribe(resp => {
+              if (resp) {
+                const ob:string[]=[
+                resp.id+'',
+                resp.nroSucursal+'',
+                resp.nombre
+                ];
+                this.navegarService.limpiarS();
+                this.navegarService.sSucursal(ob);
+                this.router.navigate([`./navegar/puntoventa/${resp.id}`]);
+              }
+            });         
+        }
+        this.router.navigate(['./navegar']);
+      },(error) => {
+        this.hayError = true;
         console.error(error);
-      })
+      });
   }
 
 }

@@ -12,29 +12,64 @@ export interface TLogin {
 }
 
 // MIO
-export interface Tusuario {
-  usuid:     number;
-  usuario:   string;
-  clave:     string;
-  perid:     number;
-  bloqueado: boolean;
-  Persona:   TPersona;
+export interface TLogin {
+  usuario : string;
+  password: string;
+  sucursal: number;
 }
 
-export interface TPersona {
-  perid:      number;
-  documento:  string;
-  nombre:     string;
-  paterno:    string;
-  materno:    string;
-  nombrec:    string;
-  biometrico: number | null;
+export interface TUsuario {
+  id: number;
+  usuario: string;
+  password:  string;
+  nombre:  string;
 }
 
 export interface Tpermiso {
   usuid:    number;
   permisos: string[];
 }
+
+export interface Tsucursal {
+  id:          number;
+  nroSucursal: number;
+  nombre:      string;
+  direccion:   string;
+  telefono:    string;
+  created_at:  Date;
+  updated_at:  Date;
+}
+
+export interface TpuntoVenta {
+  id:               number;
+  codigoPuntoVenta: number;
+  nombrePuntoVenta: string;
+  tipoPuntoVenta:   string;
+  sucursalId:       number;
+}
+
+export interface TVenta {
+  id:           number;
+  razonSocial:  string;
+  fechHora:     Date;
+  monto:        number;
+  nroDocumento: string;
+  estado:       boolean;
+  puntoVentaId: number;
+  id_usuario:   number;
+}
+
+export interface TProductoV {
+  id?:            number;
+  producto:       string;
+  unidad:         string;
+  precioUnitario: number;
+  cantidad:       number;
+  sucursalId:     number;
+  puntoVentaId:   number;
+  ventaId:        number;
+}
+
 
 //tipo JULIO API
 export interface TJulio {
@@ -55,8 +90,3 @@ export interface Dependence {
   nombre: string;
 }
 // End tipo Julio
-
-export interface TresultatoPersona {
-  tipo: number;
-  data: TPersona[] | TJulio[] | [];
-}

@@ -10,13 +10,13 @@ export class SideBarService {
 
 menu:Tmenu[]=[
   {
-    titulo: 'Ingresos',
+    titulo: 'Factura',
     icono: 'nav-icon fas fa-copy',
-    url: '/gate',
+    url: '/factura',
     permisos: ['LOG'],
     submenu: [
-      {titulo: 'Ingresos', icono: '', url:'/gate/principal', permisos: ['']},
-      {titulo: 'Reporte', icono: '', url:'/gate/reporte', permisos: ['']}
+      {titulo: ' Nueva Factura', icono: 'fas fa-calculator', url:'/factura/factura', permisos: ['canDoFactura']},
+      {titulo: ' Busqueda Factura', icono: 'fa fa-search-plus', url:'/factura/busquedaA', permisos: ['canFindFactura']}
     ]
   },
   {

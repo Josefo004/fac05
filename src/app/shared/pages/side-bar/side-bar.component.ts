@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { PermisosService } from 'src/app/auth/services/permisos.service';
 import { Tmenu } from 'src/app/interfaces/interfaces';
+import { NavegarService } from 'src/app/navegar/services/navegar.service';
 import { SideBarService } from '../../services/side-bar.service';
 
 declare var $: any;
@@ -21,10 +22,15 @@ export class SideBarComponent implements OnInit {
     return this.authService.auth;
   }
 
+  get mostrarM(){
+    return this.navegarService.showMenuN;
+  }
+
   constructor(private authService: AuthService,
               private router: Router,
               private sideBarService: SideBarService,
-              private permisosService: PermisosService) { }
+              private permisosService: PermisosService,
+              private navegarService: NavegarService) { }
 
   ngOnInit(): void {
     this.menu();
@@ -40,6 +46,13 @@ export class SideBarComponent implements OnInit {
     this.permisosService.limpiar_permisos();
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  mainNavegar(){
+    this.router.navigate(['/navegar']);
+    this.navegarService.limpiarS();
+    this.navegarService.limpiarP();
+    this.navegarService.limpiaeSM();
   }
 
 }

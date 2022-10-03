@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NavegarService } from 'src/app/navegar/services/navegar.service';
 
 @Component({
   selector: 'app-bread-crumbs',
@@ -6,11 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class BreadCrumbsComponent implements OnInit {
+export class BreadCrumbsComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get titulo (){
+    return this.navegarService.titulo;
   }
+
+  constructor(private navegarService: NavegarService) { }
 
 }
