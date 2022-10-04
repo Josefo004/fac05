@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -15,6 +16,16 @@ import { VentasService } from '../../services/ventas.service';
 export class BuscarFacturaComponent implements OnInit {
 
   ventasItems: TVenta[]=[];
+  unaVenta   : TVenta = {
+    id: 0,
+    razonSocial: '',
+    fechHora: new Date(),
+    monto: 0,
+    nroDocumento: '',
+    estado: false,
+    puntoVentaId: 0,
+    id_usuario:0
+  }; 
   displayStyle = "none";
 
   get titulo (){
@@ -88,6 +99,25 @@ export class BuscarFacturaComponent implements OnInit {
   }
   closePopup() {
     this.displayStyle = "none";
+  }
+
+  seleccionar_borrar(idV:number){
+    this.ventasService.buscarUnaVenta(idV)
+      .subscribe(resp => {
+        this.unaVenta = resp;
+        this.openPopup();
+      });
+  }
+
+  borrar_factura(idV:number){
+    this.ventasService.buscarUnaVenta(idV)
+      .subscribe(resp => {
+        this.ventasService.eliminarVenta(resp)
+          .subscribe(resp => {
+            console.log('VENTA BORRADA',resp);
+            
+          });
+      });
   }
 
 }

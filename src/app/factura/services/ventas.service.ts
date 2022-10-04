@@ -61,4 +61,11 @@ export class VentasService {
     return this.http.post<TVenta>(urlVentas,bo,
       {headers: new HttpHeaders({'Content-Type': 'application/json'})});
   }
+
+  //eliminar una venta
+  eliminarVenta(venta:TVenta){
+    const urlVentas = `${this.apiUrl}/ventas/${venta.id}`;
+    return this.http.put<TVenta>(urlVentas, venta,
+      {headers: new HttpHeaders({'Content-Type': 'application/json'})})
+  }
 }

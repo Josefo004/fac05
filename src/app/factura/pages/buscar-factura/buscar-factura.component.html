@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-6" *ngIf="item.id_usuario === usuario.id">
                       <span class="p-2">
-                        <a (click)="verdetalle(item.id)" class="badge bg-primary" title="BORRAR FACTURA : {{ item.razonSocial }}">
+                        <a (click)="seleccionar_borrar(item.id)" class="badge bg-primary" title="BORRAR FACTURA : {{ item.razonSocial }}">
                           <i class="fa fa-trash"></i>
                         </a>
                       </span>
@@ -79,9 +79,6 @@
     </div>
   </section>
 </div>
-<h3>Please click on the below button open popup</h3>
-<hr />
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="openPopup()">Large modal</button>
 <div
   class="modal"
   tabindex="-1"
@@ -90,13 +87,33 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h4 class="modal-title">Borrar Factura</h4>
         <button type="button" class="close" (click)="closePopup()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <table class="table table-sm ">
+          <tbody>
+            <tr>
+              <th class="table-active">Razón Social</th>
+              <td>{{unaVenta.razonSocial | uppercase}}</td>
+            </tr>
+            <tr>
+              <th class="table-active">Nro. Documento</th>
+              <td>{{unaVenta.nroDocumento}}</td>
+            </tr>
+            <tr>
+              <th class="table-active">Monto</th>
+              <td>Bs. {{unaVenta.monto | number : '1.2-2' }}</td>
+            </tr>
+            <tr>
+              <th class="table-active">Fecha y Hora</th>
+              <td>{{unaVenta.fechHora | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+            </tr>
+          </tbody>
+        </table>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info">Save changes</button>
