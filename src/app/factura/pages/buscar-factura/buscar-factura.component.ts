@@ -15,6 +15,7 @@ import { VentasService } from '../../services/ventas.service';
 export class BuscarFacturaComponent implements OnInit {
 
   ventasItems: TVenta[]=[];
+  displayStyle = "none";
 
   get titulo (){
     return this.navegarService.titulo;
@@ -80,6 +81,13 @@ export class BuscarFacturaComponent implements OnInit {
     this.ventasService.sidVenta(idV);
     this.imprimirService.para_imprimir(idV);
     this.router.navigate([`./factura/verdetalle`]);
+  }
+
+  openPopup() {
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.displayStyle = "none";
   }
 
 }
