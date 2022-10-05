@@ -217,7 +217,7 @@
       "estado": true,
       "puntoVentaId": 1,
       "id_usuario": 2,
-      "borrado": false
+      "borrado": true
     },
     {
       "id": 3,
@@ -239,7 +239,7 @@
       "estado": true,
       "puntoVentaId": 1,
       "id_usuario": 2,
-      "borrado": false
+      "borrado": true
     },
     {
       "id": 5,
@@ -272,7 +272,7 @@
       "estado": true,
       "puntoVentaId": 1,
       "id_usuario": 2,
-      "borrado": false
+      "borrado": true
     },
     {
       "id": 8,
@@ -360,6 +360,12 @@
       "nroDocumento": "666666",
       "tipoDoc": "CEDULA",
       "id": 5
+    },
+    {
+      "razonSocial": "JOSÉ MENDOZA VARGAS",
+      "nroDocumento": "3659537",
+      "tipoDoc": "CEDULA",
+      "id": 6
     }
   ],
   "productos": [

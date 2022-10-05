@@ -3,23 +3,25 @@
     <div class="row mb-2">
       <div class="col-md-4">
         <app-input
+          [terminoIn]="termino"
+          [placeholder]="placeholder"
           (onEnter)="buscar( $event )"
           (onDebounce)="sugerencias( $event )"
           >
         </app-input>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="por" [(ngModel)]="por" id="inlineRadio1" value="1">
+          <input class="form-check-input" type="radio" (click)="miplaceholder('1')" name="por" [(ngModel)]="por" id="inlineRadio1" value="1">
           <label class="form-check-label" for="inlineRadio1">Por Nro. de Documento</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="por" [(ngModel)]="por" id="inlineRadio2" value="2">
+          <input class="form-check-input" type="radio" (click)="miplaceholder('2')" name="por" [(ngModel)]="por" id="inlineRadio2" value="2">
           <label class="form-check-label" for="inlineRadio2">Por Razón Social</label>
         </div>
       </div>
       <div class="col-md-3">
-        <button class="btn btn-primary btn-sm" (click)="ultimos15()" > Ultimos 15 </button>
+        <button class="btn btn-primary btn-block" (click)="ultimos15()" > Ultimos 15 </button>
       </div>
     </div>
   </section>
@@ -83,7 +85,8 @@
   class="modal"
   tabindex="-1"
   role="dialog"
-  [ngStyle]="{'display':displayStyle}">
+  [ngStyle]="{'display':displayStyle}"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -95,6 +98,10 @@
       <div class="modal-body">
         <table class="table table-sm ">
           <tbody>
+            <tr>
+              <th class="table-active">Nro. de Factura</th>
+              <td>{{unaVenta.id}}</td>
+            </tr>
             <tr>
               <th class="table-active">Razón Social</th>
               <td>{{unaVenta.razonSocial | uppercase}}</td>
@@ -116,8 +123,8 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info">Save changes</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closePopup()">Close</button>
+        <!-- <button type="button" class="btn btn-info" (click)="closePopup()">Cancelar Borrado</button> -->
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="borrar_factura()">Borrar Factura</button>
       </div>
     </div>
   </div>

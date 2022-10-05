@@ -57,6 +57,7 @@ export interface TVenta {
   estado:       boolean;
   puntoVentaId: number;
   id_usuario:   number;
+  borrado:      boolean;
 }
 
 export interface TProductoV {
@@ -68,6 +69,13 @@ export interface TProductoV {
   sucursalId:     number;
   puntoVentaId:   number;
   ventaId:        number;
+}
+
+export interface TRazonSocial {
+  id?:          number;
+  razonSocial:  string;
+  nroDocumento: string;
+  tipoDoc:      string;
 }
 
 

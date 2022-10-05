@@ -29,7 +29,7 @@ export class VentasService {
   
   //ultimas 15 ventas
   utimos15(){
-    const urlVentas = `${this.apiUrl}/ventas?puntoVentaId=${this.puntoVenta[0]}&_sort=id&_order=desc&_limit=15`;
+    const urlVentas = `${this.apiUrl}/ventas?puntoVentaId=${this.puntoVenta[0]}&borrado=false&_sort=id&_order=desc&_limit=15`;
     console.log(urlVentas);
     return this.http.get<TVenta[]>(urlVentas);
   }

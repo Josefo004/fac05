@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../shared/pages/home/home.component';
 import { BuscarFacturaComponent } from './pages/buscar-factura/buscar-factura.component';
+import { FacturaComponent } from './pages/factura/factura.component';
 import { VerDetalleComponent } from './pages/ver-detalle/ver-detalle.component';
 
 const routes: Routes = [
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {path: 'buscarfactura', component: BuscarFacturaComponent, data:{titulo: 'Buscar Factura'}},
+      {path: 'factura', component: FacturaComponent, data:{titulo:'Hacer Factura'}},
       {path: 'verdetalle', component: VerDetalleComponent, data:{titulo:'Hacer Factura'}},
       {path: '**', redirectTo: 'buscarfactura'}
     ]

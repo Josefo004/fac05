@@ -39,7 +39,6 @@
                       <th scope="col">Producto</th>
                       <th class="text-right" scope="col">Precio Unitario</th>
                       <th class="text-right" scope="col">Total</th>
-                      <th scope="col">-</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -49,7 +48,6 @@
                       <td>{{ item.producto | titlecase}}</td>
                       <td class="text-right">Bs. {{ item.precioUnitario | number : '1.2-2' }}</td>
                       <td class="text-right">Bs. {{ item.cantidad * item.precioUnitario | number : '1.2-2' }}</td>
-                      <td> </td>
                     </tr>
                   </tbody>
                   <tfoot>

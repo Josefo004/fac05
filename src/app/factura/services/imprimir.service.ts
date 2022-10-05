@@ -22,7 +22,8 @@ export class ImprimirService {
     nroDocumento: '',
     estado: false,
     puntoVentaId: 0,
-    id_usuario: 0
+    id_usuario: 0,
+    borrado: false
   }
 
   sucursalS     : Tsucursal = {

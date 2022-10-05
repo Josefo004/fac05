@@ -1,0 +1,102 @@
+<div *ngIf="titulo.length>0">
+  <section>
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <label for="termino">No de Documento</label>
+        <app-input
+          [placeholder]="placeholder"
+          [terminoIn]="razonSocial.nroDocumento"
+          (onEnter)="buscarRazonSocial( $event )"
+          >
+        </app-input>
+      </div>
+      <div class="col-md-5">
+        <label for="razonSocial">Razon Social</label>
+        <div class="input-group mb-3">
+          <input 
+            type="text" 
+            name="rsname"
+            class="form-control" 
+            [(ngModel)]="razonSocial.razonSocial"
+            readonly>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="far fa-file-alt"></span>
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':dRazonSocial}">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Borrar Factura</h4>
+        <button type="button" class="close" (click)="popup(1)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <section>    
+          <div class="row mb-12">
+            <div class="col-2">
+              <label for="razonSocial">Tipo de Documento</label>
+              <div class="input-group">
+                <select class="form-control" id="tipoDocumento" [(ngModel)]="razonSocial.tipoDoc">
+                  <option>NIT</option>
+                  <option>CEDULA</option>
+                  <option>PASAPORTE</option>
+                  <option>R.U.N.</option>
+                </select>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="fas fa-caret-down"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="razonSocial">Nro Documento</label>              
+                <input 
+                  type="text" 
+                  name="nroDocumentoM"
+                  class="form-control" 
+                  [(ngModel)]="razonSocial.nroDocumento">
+              
+            </div>
+            <div class="col-6">
+              <label for="razonSocial">Razon Social</label>
+                <input 
+                  type="text" 
+                  name="rsnameM"
+                  class="form-control" 
+                  [(ngModel)]="razonSocial.razonSocial">
+            </div>
+          </div>
+          <div class="row mb-12">
+            <div class="col-6 pt-3">
+              <label for="razonSocial">Correo Electronico</label>
+                <input 
+                  type="text" 
+                  name="rsnameM"
+                  class="form-control" 
+                >
+            </div>
+          </div>
+        </section>
+      
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-info" (click)="closePopup()">Cancelar Borrado</button> -->
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="guardar_RS()">Borrar Factura</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-oops-page></app-oops-page>

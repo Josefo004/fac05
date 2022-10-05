@@ -24,7 +24,8 @@ export class BuscarFacturaComponent implements OnInit {
     nroDocumento: '',
     estado: false,
     puntoVentaId: 0,
-    id_usuario:0
+    id_usuario:0,
+    borrado:false
   }; 
   displayStyle = "none";
 
@@ -37,6 +38,7 @@ export class BuscarFacturaComponent implements OnInit {
   }
 
   termino:string='';
+  placeholder:string='';
   por:string[1]=''; //radio buton
 
   constructor(private navegarService: NavegarService,
@@ -53,6 +55,8 @@ export class BuscarFacturaComponent implements OnInit {
   ultimos15(){
     this.ventasService.utimos15()
       .subscribe( vts => this.ventasItems = vts );
+    this.por='1';
+    this.miplaceholder('1');
   }
 
   buscar(termino:string){
@@ -109,15 +113,21 @@ export class BuscarFacturaComponent implements OnInit {
       });
   }
 
-  borrar_factura(idV:number){
-    this.ventasService.buscarUnaVenta(idV)
-      .subscribe(resp => {
-        this.ventasService.eliminarVenta(resp)
-          .subscribe(resp => {
-            console.log('VENTA BORRADA',resp);
-            
-          });
-      });
+  borrar_factura(){
+    this.unaVenta.borrado = true;
+    this.ventasService.eliminarVenta(this.unaVenta)
+    .subscribe(resp => {
+      console.log('VENTA BORRADA',resp);
+      this.closePopup();
+      this.ultimos15();
+    });
+  }
+
+  miplaceholder(ppp:string){
+    this.termino='';
+    this.por = ppp;
+    if (this.por=='1') this.placeholder='Buscar Nro Documento ...'
+    else this.placeholder='Buscar Razon Social ...';
   }
 
 }
