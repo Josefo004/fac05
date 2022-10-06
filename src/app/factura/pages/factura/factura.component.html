@@ -31,29 +31,80 @@
       <div class="input-group mb-0">
         <app-input
           class="form-control col-md-6"
+          [terminoIn]="productoAv.producto | titlecase"
           [placeholder]="placeholder2"
           (onEnter)="buscarProducto( $event )"
           (onDebounce)="sugerencias( $event )"
         >
           <!-- [(ngModel)]="precioUP" -->
         </app-input>
-        <input type="text" name="cantidad" class="form-control m-input col-md-2" placeholder="Cantidad ..." autocomplete="off">
-        <input type="text" name="unidad" class="form-control m-input col-md-2" placeholder="Unidad de Medida ..." readonly>
-        <input type="text" name="preciou" class="form-control m-input col-md-2" placeholder="Precio Unitario ...">
-        <button type="button" class="btn btn-primary btn-sm" (click)="agregar()" >Agregar</button>        
+        <button *ngIf="cancelar" type="button" class="btn btn-secondary btn-sm" (click)="cancelarPaV()" >X</button>
+        <input type="text" name="cantidad" [(ngModel)]="productoAv.cantidad" class="form-control m-input col-md-2" placeholder="Cantidad ..." autocomplete="off">
+        <input type="text" name="unidad" [(ngModel)]="productoAv.unidad" class="form-control m-input col-md-2" placeholder="Unidad de Medida ..." readonly>
+        <input type="text" name="preciou" [(ngModel)]="productoAv.precioUnitario" class="form-control m-input col-md-2" placeholder="Precio Unitario ...">
+        <button type="button" class="btn btn-primary btn-sm" (click)="agregar()">Agregar</button>        
       </div>
       <div *ngIf="productosSel.length > 0">
-        <ul class="list-group list-group-flush">
-          <li *ngFor="let item of productosSel"
-            class="list-group-item list-group-item-action">
-            <a class="nav-link">
+        <ul class="list-group list-group-flush dropdown">
+          <li *ngFor="let item of productosSel; let i = index"
+            class="list-group-item list-group-item-action dropdown-item">
+            <a (click)="seleccionarProducto(i)" class="nav-link">
               {{ item.producto | titlecase}}
             </a>
           </li>
         </ul>
       </div>
-      <div id="newRow"></div>
     </div>
+
+    <div class="row">
+      <section *ngIf="productosVende.length>0">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nro</th>
+                      <th scope="col">Cantidad</th>
+                      <th scope="col">Producto</th>
+                      <th class="text-right" scope="col">Precio Unitario</th>
+                      <th class="text-right" scope="col">Total</th>
+                      <th scope="col">-</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of productosVende; let i = index ">
+                      <td>{{ i+1 }}</td>
+                      <td>{{ item.cantidad+' - '+item.unidad | titlecase}}</td>
+                      <td>{{ item.producto | titlecase}}</td>
+                      <td class="text-right">Bs. {{ item.precioUnitario | number : '1.2-2' }}</td>
+                      <td class="text-right">Bs. {{ item.cantidad * item.precioUnitario | number : '1.2-2' }}</td>
+                      <td><button type="button" class="btn btn-info btn-sm btn-block" (click)="quitar(i)" >Quitar</button> </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th colspan="4" class="text-right">Total:</th>
+                      <td class="text-right">Bs. {{totalV | number : '1.2-2'}}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" [(ngModel)]="facturar">
+              <label class="form-check-label" for="exampleCheck1">Facturar Venta </label>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" (click)="guardarVenta()">Guardar Venta</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
   </section>
 </div>
 <div
@@ -120,6 +171,35 @@ role="dialog"
     <div class="modal-footer">
       <!-- <button type="button" class="btn btn-info" (click)="closePopup()">Cancelar Borrado</button> -->
       <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="guardar_RS()">Guardar Razón Social</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div
+class="modal"
+tabindex="-1"
+role="dialog"
+[ngStyle]="{'display':dImprimir}">
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Borrar Factura</h4>
+      <button type="button" class="close" (click)="popup(2)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-6 d-flex justify-content-center">
+          <button type="button" class="btn btn-primary btn-sm"  data-dismiss="modal" (click)="imprimirt()">Imprimir en  Etiquetadora</button>
+        </div>
+        <div class="col-6 d-flex justify-content-center">
+          <button type="button" class="btn btn-primary btn-sm"  data-dismiss="modal" (click)="imprimirt()">Imprimir en  Carta</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
     </div>
   </div>
 </div>

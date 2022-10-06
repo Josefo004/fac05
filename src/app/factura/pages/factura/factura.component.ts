@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { TRazonSocial } from 'src/app/interfaces/interfaces';
+import { TProductoAV, TProductoV, TRazonSocial, TVenta } from 'src/app/interfaces/interfaces';
 import { NavegarService } from 'src/app/navegar/services/navegar.service';
 import { RazonSocialService } from '../../services/razon-social.service';
 import { TProducto } from '../../../interfaces/interfaces';
 import { ProductosService } from '../../services/productos.service';
+import { VentasService } from '../../services/ventas.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { DetalleVentaService } from '../../services/detalle-venta.service';
+import { ImprimirService } from '../../services/imprimir.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-factura',
@@ -14,7 +19,7 @@ import { ProductosService } from '../../services/productos.service';
       padding-top: 5px;
     }
     li{
-      padding: 0px 0px 3px 0px;
+      padding: 3px 3px 3px 3px;
       cursor: pointer;
     }
     app-input {
@@ -25,8 +30,14 @@ import { ProductosService } from '../../services/productos.service';
 })
 export class FacturaComponent implements OnInit {
 
-  dRazonSocial = 'none';
-  productosSel : TProducto[] = [];
+  dRazonSocial   = 'none';
+  dImprimir      = 'none';
+  productosSel   : TProducto[] = [];
+  productosVende : TProductoV[] = [];
+  totalV         : number = 0;
+  facturar       : boolean = false;
+  ventaSave!     : TVenta;
+
   productoSel  : TProducto = {
     id: 0,
     producto: '',
@@ -35,6 +46,13 @@ export class FacturaComponent implements OnInit {
     precioMaximo: 0,
     sucursalId: 0,
     puntoVentaId: 0
+  }
+
+  productoAv   :TProductoAV = {
+    producto:'',
+    unidad:'',
+    precioUnitario:0,
+    cantidad:0
   }
 
   razonSocial : TRazonSocial={
@@ -46,6 +64,8 @@ export class FacturaComponent implements OnInit {
   termino:string='';
   placeholder:string  = 'Nro documento ...';
   placeholder2:string = 'Producto Buscado ...';
+  cancelar:boolean = false;
+  
 
   get titulo (){
     return this.navegarService.titulo;
@@ -54,7 +74,12 @@ export class FacturaComponent implements OnInit {
   
   constructor(private razonSocialService: RazonSocialService,
               private navegarService: NavegarService,
-              private produtoService: ProductosService) { }
+              private produtoService: ProductosService,
+              private ventasService: VentasService,
+              private authService: AuthService,
+              private detalleVentaService: DetalleVentaService,
+              private imprimirService: ImprimirService,
+              private router: Router) { }
     
   ngOnInit(): void {
     this.dRazonSocial='none';
@@ -104,6 +129,9 @@ export class FacturaComponent implements OnInit {
       case 1:
         this.dRazonSocial = (this.dRazonSocial=='none')?'block':'none';
         break;
+      case 2:
+        this.dImprimir = (this.dImprimir=='none')?'block':'none';
+        break;
     }
   }
 
@@ -112,6 +140,9 @@ export class FacturaComponent implements OnInit {
       this.produtoService.productosPorPVenta(termino)
         .subscribe(resp => {
           this.productosSel = resp;
+          if (this.productosSel.length==1) {
+            this.seleccionarProducto(0);
+          }
         });
     }
     else{
@@ -122,6 +153,7 @@ export class FacturaComponent implements OnInit {
   sugerencias(termino:string){
     if (termino.length>2) {
       this.productosSel = [];
+      //this.iniciarproductoAV();
       this.produtoService.productosPorPVenta(termino)
         .subscribe(resp => {
           this.productosSel = resp;
@@ -132,6 +164,95 @@ export class FacturaComponent implements OnInit {
     }
   }
 
-  agregar(){}
+  iniciarproductoAV(){
+    this.productoAv = {
+      producto:'',
+      unidad:'',
+      precioUnitario:0,
+      cantidad:0
+    }
+  }
+
+  seleccionarProducto(i:number){
+   this.productoSel = this.productosSel[i];
+   console.log(this.productoSel);
+   this.productoAv.producto = this.productoSel.producto;
+   this.productoAv.unidad = this.productoSel.unidad;
+   this.productoAv.precioUnitario = this.productoSel.precioMinimo;
+   this.productosSel = []; 
+   this.cancelar=true;  
+  }
+
+  cancelarPaV(){
+    this.productosSel = [];
+    this.iniciarproductoAV();
+    this.cancelar=false;
+  }
+
+  agregar(){
+    let unProducto: TProductoV = {
+      producto       : this.productoSel.producto,
+      unidad         : this.productoSel.unidad,
+      precioUnitario : this.productoAv.precioUnitario,
+      cantidad       : this.productoAv.cantidad,
+      sucursalId     : this.productoSel.sucursalId,
+      puntoVentaId   : this.productoSel.puntoVentaId,
+      ventaId        : 0
+    }
+    this.productosVende.push(unProducto);
+    this.totalProductos();
+    console.log('nuevo producto ',this.productosVende);
+    this.cancelarPaV();
+  }
+
+  totalProductos(){
+    let k = this.productosVende.length;
+    this.totalV = 0;
+    for (let i = 0; i < k; i++) {
+      this.totalV+=this.productosVende[i].cantidad*this.productosVende[i].precioUnitario;
+    }
+  }
+
+  quitar(i:number){
+    console.log('QUITAR',i);
+    this.productosVende.splice(i,1);
+    console.log(this.productosVende);
+    this.totalProductos();
+  }
+
+  guardarVenta(){
+    let ventaNueva: TVenta = {
+      id          : 0,
+      razonSocial : this.razonSocial.razonSocial,
+      fechHora    : new Date(),
+      monto       : this.totalV,
+      nroDocumento: this.razonSocial.nroDocumento,
+      estado      : this.facturar,
+      puntoVentaId: parseInt(this.navegarService.puntoVentaN[0],10),
+      id_usuario  : this.authService.auth.id || 0,
+      borrado     : false
+    }
+
+    this.ventasService.guardarVenta(ventaNueva)
+      .subscribe(resp => {
+        this.ventaSave = resp;
+        console.log(resp);
+        let k = this.productosVende.length;
+        for (let i = 0; i < k; i++) {
+          this.productosVende[i].ventaId = this.ventaSave.id;
+          this.detalleVentaService.guardarUnDetalle(this.productosVende[i])
+            .subscribe(resp => console.log('DETALLE VENDIDO', resp));
+        }
+        this.imprimirService.para_imprimir(this.ventaSave.id);
+        this.popup(2);
+        //this.router.navigate([`./factura`]);
+      });
+
+  }
+
+  imprimirt(){
+    this.imprimirService.imprimir_Ticket();
+    this.router.navigate([`./factura`]);
+  }
 
 }

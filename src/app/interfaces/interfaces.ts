@@ -99,6 +99,22 @@ export interface TProductoV {
   ventaId:        number;
 }
 
+export interface TProductoAV {
+  producto:       string;
+  unidad:         string;
+  precioUnitario: number;
+  cantidad:       number;
+}
+
+export interface TVenta {
+  id:           number;
+  razonSocial:  string;
+  fechHora:     Date;
+  monto:        number;
+  nroDocumento: string;
+  estado:       boolean;
+  puntoVentaId: number;
+}
 
 //tipo JULIO API
 export interface TJulio {

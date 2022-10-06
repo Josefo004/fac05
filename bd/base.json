@@ -328,6 +328,39 @@
       "puntoVentaId": 1,
       "id_usuario": 2,
       "borrado": false
+    },
+    {
+      "id": 13,
+      "razonSocial": "",
+      "fechHora": "2022-10-06T20:00:08.742Z",
+      "monto": 42,
+      "nroDocumento": "",
+      "estado": true,
+      "puntoVentaId": 1,
+      "id_usuario": 2,
+      "borrado": false
+    },
+    {
+      "id": 14,
+      "razonSocial": "JOSÉ MENDOZA VARGAS",
+      "fechHora": "2022-10-06T20:15:38.287Z",
+      "monto": 92.4,
+      "nroDocumento": "3659537",
+      "estado": false,
+      "puntoVentaId": 1,
+      "id_usuario": 2,
+      "borrado": false
+    },
+    {
+      "id": 15,
+      "razonSocial": "JOSÉ MENDOZA VARGAS",
+      "fechHora": "2022-10-06T20:19:39.393Z",
+      "monto": 3.5,
+      "nroDocumento": "3659537",
+      "estado": true,
+      "puntoVentaId": 1,
+      "id_usuario": 2,
+      "borrado": false
     }
   ],
   "razonSocial": [
@@ -2134,6 +2167,46 @@
       "puntoVentaId": 1,
       "ventaId": 12,
       "id": 19
+    },
+    {
+      "producto": "LECHE DE VACA (LECHE DE VACA PURA)",
+      "unidad": "LITROS",
+      "precioUnitario": 3.5,
+      "cantidad": "12",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 13,
+      "id": 20
+    },
+    {
+      "producto": "HORTALIZAS (LECHUGAS)",
+      "unidad": "CABEZAS",
+      "precioUnitario": 0.4,
+      "cantidad": "1",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 14,
+      "id": 21
+    },
+    {
+      "producto": "HORTALIZAS ( REMOLACHA )",
+      "unidad": "QUINTALES",
+      "precioUnitario": 92,
+      "cantidad": "1",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 14,
+      "id": 22
+    },
+    {
+      "producto": "LECHE DE VACA (LECHE DE VACA PURA)",
+      "unidad": "LITROS",
+      "precioUnitario": 3.5,
+      "cantidad": "1",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 15,
+      "id": 23
     }
   ]
 }
