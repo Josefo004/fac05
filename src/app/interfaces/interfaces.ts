@@ -78,6 +78,27 @@ export interface TRazonSocial {
   tipoDoc:      string;
 }
 
+export interface TProducto {
+  id:           number;
+  producto:     string;
+  unidad:       string;
+  precioMinimo: number;
+  precioMaximo: number;
+  sucursalId:   number;
+  puntoVentaId: number;
+}
+
+export interface TProductoV {
+  id?:            number;
+  producto:       string;
+  unidad:         string;
+  precioUnitario: number;
+  cantidad:       number;
+  sucursalId:     number;
+  puntoVentaId:   number;
+  ventaId:        number;
+}
+
 
 //tipo JULIO API
 export interface TJulio {
