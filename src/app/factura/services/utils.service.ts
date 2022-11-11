@@ -175,4 +175,10 @@ numeroALetras(xx:number) {
         return this.Millones(data.enteros) + ' ' + data.letrasMonedaPlural + data.letrasCentavos;
 };
 
+solo_enteros(evt:Event){
+    
+    console.log(evt);
+    
+  }
+
 }

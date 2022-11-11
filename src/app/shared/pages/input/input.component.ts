@@ -14,6 +14,7 @@ export class InputComponent implements OnInit {
 
   @Input() placeholder:string='';
   @Input() terminoIn!:string;
+  @Input() showicono:boolean=true;
 
   debouncer: Subject<string> = new Subject();
 

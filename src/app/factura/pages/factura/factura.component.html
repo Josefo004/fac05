@@ -38,10 +38,10 @@
         >
           <!-- [(ngModel)]="precioUP" -->
         </app-input>
-        <button *ngIf="cancelar" type="button" class="btn btn-secondary btn-sm" (click)="cancelarPaV()" >X</button>
-        <input type="text" name="cantidad" [(ngModel)]="productoAv.cantidad" class="form-control m-input col-md-2" placeholder="Cantidad ..." autocomplete="off">
+        <button *ngIf="cancelar" type="button" class="btn btn-info btn-sm" (click)="cancelarPaV()" >X</button>
+        <input type="text" name="cantidad" [(ngModel)]="productoAv.cantidad" class="form-control m-input col-md-2" placeholder="Cantidad ..." (keypress)="solo_numeros($event)" autocomplete="off">
         <input type="text" name="unidad" [(ngModel)]="productoAv.unidad" class="form-control m-input col-md-2" placeholder="Unidad de Medida ..." readonly>
-        <input type="text" name="preciou" [(ngModel)]="productoAv.precioUnitario" class="form-control m-input col-md-2" placeholder="Precio Unitario ...">
+        <input type="text" name="preciou" [(ngModel)]="productoAv.precioUnitario" class="form-control m-input col-md-2" placeholder="Precio Unitario ..." (keypress)="solo_numeros($event, '2')" autocomplete="off">
         <button type="button" class="btn btn-primary btn-sm" (click)="agregar()">Agregar</button>        
       </div>
       <div *ngIf="productosSel.length > 0">
@@ -49,7 +49,7 @@
           <li *ngFor="let item of productosSel; let i = index"
             class="list-group-item list-group-item-action dropdown-item">
             <a (click)="seleccionarProducto(i)" class="nav-link">
-              {{ item.producto | titlecase}}
+              {{ item.producto | titlecase}} Pmax:{{item.precioMaximo}}Bs. - Pmin:{{item.precioMinimo}}Bs.
             </a>
           </li>
         </ul>
@@ -94,11 +94,13 @@
             </div>
           </div>
           <div class="card-footer">
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" [(ngModel)]="facturar">
-              <label class="form-check-label" for="exampleCheck1">Facturar Venta </label>
+            <div *ngIf="productosVende.length>0 && razonSocial.tipoDoc != ''">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="facturar">
+                <label class="form-check-label" for="exampleCheck1">Facturar Venta </label>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" (click)="guardarVenta()">Guardar Venta</button>
             </div>
-            <button type="button" class="btn btn-primary btn-sm" (click)="guardarVenta()">Guardar Venta</button>
           </div>
         </div>
       </section>
@@ -169,7 +171,6 @@ role="dialog"
       </section>
     </div>
     <div class="modal-footer">
-      <!-- <button type="button" class="btn btn-info" (click)="closePopup()">Cancelar Borrado</button> -->
       <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="guardar_RS()">Guardar Razón Social</button>
     </div>
   </div>
@@ -184,7 +185,7 @@ role="dialog"
 <div class="modal-dialog modal-xl" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h4 class="modal-title">Borrar Factura</h4>
+      <h4 class="modal-title">Imprimir Factura</h4>
       <button type="button" class="close" (click)="popup(2)">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -192,14 +193,42 @@ role="dialog"
     <div class="modal-body">
       <div class="row">
         <div class="col-6 d-flex justify-content-center">
-          <button type="button" class="btn btn-primary btn-sm"  data-dismiss="modal" (click)="imprimirt()">Imprimir en  Etiquetadora</button>
+          <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" (click)="imprimirt()">Imprimir en  Etiquetadora</button>
         </div>
         <div class="col-6 d-flex justify-content-center">
-          <button type="button" class="btn btn-primary btn-sm"  data-dismiss="modal" (click)="imprimirt()">Imprimir en  Carta</button>
+          <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" (click)="imprimir2()">Imprimir en  Carta</button>
         </div>
       </div>
     </div>
     <div class="modal-footer">
+    </div>
+  </div>
+</div>
+</div>
+
+<div
+class="modal"
+tabindex="-1"
+role="dialog"
+[ngStyle]="{'display':dError}">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header bg-danger">
+      <h4 class="modal-title">Errores !!</h4>
+      <button type="button" class="close" (click)="popup(3)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ul *ngIf="aviso.length>0" class="list-group list-group-flush dropdown">
+        <li *ngFor="let item of aviso"
+          class="list-group-item list-group-item-action dropdown-item">
+          {{ item }}
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="popup(3)" >Cerrar</button>
     </div>
   </div>
 </div>

@@ -361,6 +361,61 @@
       "puntoVentaId": 1,
       "id_usuario": 2,
       "borrado": false
+    },
+    {
+      "id": 16,
+      "razonSocial": "JOSÉ MENDOZA VARGAS",
+      "fechHora": "2022-10-07T15:31:47.260Z",
+      "monto": 3.5,
+      "nroDocumento": "3659537",
+      "estado": true,
+      "puntoVentaId": 1,
+      "id_usuario": 2,
+      "borrado": false
+    },
+    {
+      "id": 17,
+      "razonSocial": "",
+      "fechHora": "2022-10-07T15:38:15.804Z",
+      "monto": 191,
+      "nroDocumento": "",
+      "estado": true,
+      "puntoVentaId": 1,
+      "id_usuario": 2,
+      "borrado": false
+    },
+    {
+      "id": 18,
+      "razonSocial": "PLANTA DE LECHE",
+      "fechHora": "2022-10-11T12:37:45.523Z",
+      "monto": 7,
+      "nroDocumento": "123456789",
+      "estado": true,
+      "puntoVentaId": 1,
+      "id_usuario": 2,
+      "borrado": false
+    },
+    {
+      "id": 19,
+      "razonSocial": "JOSÉ MENDOZA VARGAS",
+      "fechHora": "2022-11-08T15:12:44.621Z",
+      "monto": 120,
+      "nroDocumento": "3659537",
+      "estado": true,
+      "puntoVentaId": 1,
+      "id_usuario": 2,
+      "borrado": false
+    },
+    {
+      "id": 20,
+      "razonSocial": "JUAN MENDOZA",
+      "fechHora": "2022-11-08T19:38:22.098Z",
+      "monto": 8000,
+      "nroDocumento": "121545",
+      "estado": true,
+      "puntoVentaId": 3,
+      "id_usuario": 2,
+      "borrado": false
     }
   ],
   "razonSocial": [
@@ -399,6 +454,18 @@
       "nroDocumento": "3659537",
       "tipoDoc": "CEDULA",
       "id": 6
+    },
+    {
+      "razonSocial": "PLANTA DE LECHE",
+      "nroDocumento": "123456789",
+      "tipoDoc": "NIT",
+      "id": 7
+    },
+    {
+      "razonSocial": "JUAN MENDOZA",
+      "nroDocumento": "121545",
+      "tipoDoc": "NIT",
+      "id": 8
     }
   ],
   "productos": [
@@ -2207,6 +2274,76 @@
       "puntoVentaId": 1,
       "ventaId": 15,
       "id": 23
+    },
+    {
+      "producto": "LECHE DE VACA (LECHE DE VACA PURA)",
+      "unidad": "LITROS",
+      "precioUnitario": 3.5,
+      "cantidad": "1",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 16,
+      "id": 24
+    },
+    {
+      "producto": "PORCINO( CATEGORIA LECHON PROMEDIO DE 20 KILOS PESO VIVO, EN UNA CANTIDAD DE 25 CABEZAS POR SEMESTRE)",
+      "unidad": "KILOGRAMOS",
+      "precioUnitario": 7,
+      "cantidad": "1",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 17,
+      "id": 25
+    },
+    {
+      "producto": "HORTALIZAS ( ZANAHORIA )",
+      "unidad": "QUINTALES",
+      "precioUnitario": 92,
+      "cantidad": "2",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 17,
+      "id": 26
+    },
+    {
+      "producto": "PORCINO( CATEGORIA LECHON PROMEDIO DE 20 KILOS PESO VIVO, EN UNA CANTIDAD DE 25 CABEZAS POR SEMESTRE)",
+      "unidad": "KILOGRAMOS",
+      "precioUnitario": 7,
+      "cantidad": "1",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 18,
+      "id": 27
+    },
+    {
+      "producto": "HORTALIZAS ( ARVEJAS )",
+      "unidad": "ARROBA",
+      "precioUnitario": 30,
+      "cantidad": "1",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 19,
+      "id": 28
+    },
+    {
+      "producto": "HORTALIZAS ( ARVEJAS )",
+      "unidad": "ARROBA",
+      "precioUnitario": 30,
+      "cantidad": "3",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 19,
+      "id": 29
+    },
+    {
+      "producto": "SALON B ",
+      "unidad": "AMBIENTE",
+      "precioUnitario": 8000,
+      "cantidad": "1",
+      "sucursalId": 2,
+      "puntoVentaId": 3,
+      "ventaId": 20,
+      "id": 30
     }
   ]
 }

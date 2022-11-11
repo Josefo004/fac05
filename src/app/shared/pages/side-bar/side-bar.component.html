@@ -27,6 +27,7 @@
                   <span class="badge badge-secondary right">{{ item.submenu?.length }}</span>
                 </p>
               </a>
+              <!-- <ul class="nav nav-treeview"> -->
               <ul class="nav nav-treeview">
                 <li class="nav-item" *ngFor="let subItem of item.submenu">
                   <a [routerLink]="[subItem.url]" class="nav-link">

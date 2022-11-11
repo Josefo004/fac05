@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { DetalleVentaService } from '../../services/detalle-venta.service';
 import { ImprimirService } from '../../services/imprimir.service';
 import { Router } from '@angular/router';
+import { Utils } from '../../services/utils.service';
 
 @Component({
   selector: 'app-factura',
@@ -32,11 +33,13 @@ export class FacturaComponent implements OnInit {
 
   dRazonSocial   = 'none';
   dImprimir      = 'none';
+  dError         = 'none';
   productosSel   : TProducto[] = [];
   productosVende : TProductoV[] = [];
   totalV         : number = 0;
-  facturar       : boolean = false;
+  facturar       : boolean = true;
   ventaSave!     : TVenta;
+  aviso          : string[] = [];
 
   productoSel  : TProducto = {
     id: 0,
@@ -64,6 +67,7 @@ export class FacturaComponent implements OnInit {
   termino:string='';
   placeholder:string  = 'Nro documento ...';
   placeholder2:string = 'Producto Buscado ...';
+  placeholder3:string = 'Cantidad ...';
   cancelar:boolean = false;
   
 
@@ -79,7 +83,8 @@ export class FacturaComponent implements OnInit {
               private authService: AuthService,
               private detalleVentaService: DetalleVentaService,
               private imprimirService: ImprimirService,
-              private router: Router) { }
+              private router: Router,
+              private utils: Utils) { }
     
   ngOnInit(): void {
     this.dRazonSocial='none';
@@ -132,6 +137,9 @@ export class FacturaComponent implements OnInit {
       case 2:
         this.dImprimir = (this.dImprimir=='none')?'block':'none';
         break;
+      case 3:
+        this.dError = (this.dError=='none')?'block':'none';
+        break;
     }
   }
 
@@ -173,6 +181,18 @@ export class FacturaComponent implements OnInit {
     }
   }
 
+  iniciarproductoSel(){
+    this.productoSel = {
+      id: 0,
+      producto: '',
+      unidad: '',
+      precioMinimo: 0,
+      precioMaximo: 0,
+      sucursalId: 0,
+      puntoVentaId: 0
+    }
+  }
+
   seleccionarProducto(i:number){
    this.productoSel = this.productosSel[i];
    console.log(this.productoSel);
@@ -183,10 +203,24 @@ export class FacturaComponent implements OnInit {
    this.cancelar=true;  
   }
 
-  cancelarPaV(){
+  cancelarPaV(){ //cancelar producto a vender
     this.productosSel = [];
     this.iniciarproductoAV();
+    this.iniciarproductoSel();
     this.cancelar=false;
+  }
+
+  validar(psav:TProductoV, psel:TProducto){ //psav=producto seleccionado a vender | psel=producto selecionado
+    this.aviso = [];
+    if (psel.id>0) {
+      (psav.precioUnitario>=psel.precioMinimo && psav.precioUnitario<=psel.precioMaximo)
+        ?''
+        :this.aviso.push('EL PRECIO DEBE ESTAR EN EL DE RANGO DE Bs.'+psel.precioMinimo+' Y Bs.'+psel.precioMaximo);
+      (psav.cantidad>0)?'':this.aviso.push('LACANTIDAD A VENDER DEBE SER MAYOR A CERO');
+    }
+    else{ 
+      this.aviso.push('ERROR!! DEBE SELECCIONAR UN PRODUCTO');
+    }
   }
 
   agregar(){
@@ -199,10 +233,16 @@ export class FacturaComponent implements OnInit {
       puntoVentaId   : this.productoSel.puntoVentaId,
       ventaId        : 0
     }
-    this.productosVende.push(unProducto);
-    this.totalProductos();
-    console.log('nuevo producto ',this.productosVende);
-    this.cancelarPaV();
+    this.validar(unProducto, this.productoSel); 
+    if (this.aviso.length==0){
+      this.productosVende.push(unProducto);
+      this.totalProductos();
+      console.log('nuevo producto ',this.productosVende);
+      this.cancelarPaV();
+    }
+    else{
+      this.popup(3);
+    }
   }
 
   totalProductos(){
@@ -250,9 +290,37 @@ export class FacturaComponent implements OnInit {
 
   }
 
+  //validar solo numeros enteros en cantidad
+  solo_numeros(evt:any, tipoN:string='1'){
+    
+    // code codigo deci,al de la tecla precionanda.
+    var code = (evt.which) ? evt.which : evt.keyCode;
+    if (tipoN=='1') { //para numeros eneros
+      if(code==8) { // backspace.
+        return true;
+      } else if(code>=48 && code<=57) { // es un numero
+        return true;
+      } else{ // otras teclas
+        return false;
+      }
+    } else { //para numeros con punto decimal
+      if(code == 8 || code == 46) { // backspace.
+        return true;
+      } else if(code>=48 && code<=57) { // es un numero
+        return true;
+      } else{ // otras teclas
+        return false;
+      }
+    }
+  }
+
   imprimirt(){
     this.imprimirService.imprimir_Ticket();
     this.router.navigate([`./factura`]);
   }
 
+  imprimir2(){
+    this.imprimirService.imprimir_Carta();
+    this.router.navigate([`./factura`]);
+  }
 }

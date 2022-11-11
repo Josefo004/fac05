@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'Sistema de Ingresos';
+  title = 'Sistema de Facturación Virtual';
 }

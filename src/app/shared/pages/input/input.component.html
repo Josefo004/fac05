@@ -7,8 +7,8 @@
       [(ngModel)]="terminoIn"
       (input)="teclaPrecionada()"
       [placeholder]="placeholder"
-      >
-      <div class="input-group-append">
+      autocomplete="off">
+      <div *ngIf="showicono" class="input-group-append">
         <div class="input-group-text">
           <span class="fas fa-search"></span>
         </div>
