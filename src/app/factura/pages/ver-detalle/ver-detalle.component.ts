@@ -13,6 +13,7 @@ import { VentasService } from '../../services/ventas.service';
 })
 export class VerDetalleComponent implements OnInit {
 
+  codigoQRvalor: string = '2326639019|50|29040011007|12/11/2014|275.00|275.00|73-55-84-AC|163874028|0|0|0|0';
   detalleVenta : TProductoV[]=[];
   totalV       : number = 0;
   venta        : TVenta = {

@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { VerDetalleComponent } from './pages/ver-detalle/ver-detalle.component';
 import { FacturaComponent } from './pages/factura/factura.component';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     BuscarFacturaComponent,
@@ -18,7 +20,8 @@ import { FacturaComponent } from './pages/factura/factura.component';
     CommonModule,
     FacturaRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    QRCodeModule
   ]
 })
 export class FacturaModule { }

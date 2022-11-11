@@ -78,4 +78,16 @@
     </div>
   </section>
 </div>
+<qrcode id="codigoQR" 
+  [ngStyle]="{'display':'none'}"
+  [qrdata]="codigoQRvalor" 
+  [imageSrc]="'../../../../assets/img/logo_app_gadch.png'"
+  [imageHeight]="75"
+  [imageWidth]="75"
+  [margin]="1"
+  [scale]="1"
+  [title]="'A custom title attribute'"
+  [width]="300" 
+  [errorCorrectionLevel]="'M'">
+</qrcode>
 <app-oops-page></app-oops-page>

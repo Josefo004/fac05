@@ -233,4 +233,16 @@ role="dialog"
   </div>
 </div>
 </div>
+<qrcode id="codigoQR" 
+  [ngStyle]="{'display':'none'}"
+  [qrdata]="'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, id iure eos, ad vel voluptates reprehenderit cumque sint provident, aliquam perferendis optio soluta. Dicta error ipsa harum eius vitae dolore?'" 
+  [imageSrc]="'../../../../assets/img/logo_app_gadch.png'"
+  [imageHeight]="75"
+  [imageWidth]="75"
+  [margin]="1"
+  [scale]="1"
+  [title]="'A custom title attribute'"
+  [width]="300" 
+  [errorCorrectionLevel]="'M'">
+</qrcode>
 <app-oops-page></app-oops-page>

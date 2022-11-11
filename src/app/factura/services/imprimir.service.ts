@@ -85,14 +85,24 @@ export class ImprimirService {
     }
   }
 
+  getBase64Image(img: any) {
+    let canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    let ctx = canvas.getContext("2d");
+    if (ctx!=null){ctx.drawImage(img, 0, 0);}
+    let dataURL = canvas.toDataURL("image/png");
+    return dataURL;
+  }
+
 
   imprimir_Ticket(){
-    console.log('IMPRIMIR');
-    
+    console.log('IMPRIMIR TICKET');
+    const codigoQR = document.getElementById('codigoQR');
     let ancho = 104;
-    let alto = 110;
+    let alto = 140;
     let kk = this.detalleVenta.length
-    if (kk>1) alto = 100 + (6*kk);
+    if (kk>1) {alto = 140 + (6*kk)};
     let doc = new jsPDF ('p', 'mm', [alto, ancho]);
     let posy = 0;
     doc.addImage('/assets/img/logo_app_gadch.png','PNG', 1, 1, 15, 15);
@@ -185,6 +195,9 @@ export class ImprimirService {
     doc.setFontSize(7).setFont('courier', 'normal').text(this.utils.numeroALetras(this.totalV) , 5, posy, {align:'left'});
 
     posy = posy + 4;
+
+    let imageData= this.getBase64Image(codigoQR?.firstChild?.firstChild);
+    doc.addImage(imageData, "JPG", 4, posy, 40, 40);
 
     doc.output('dataurlnewwindow');
 
