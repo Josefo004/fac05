@@ -37,6 +37,7 @@ export class FacturaComponent implements OnInit {
   productosSel   : TProducto[] = [];
   productosVende : TProductoV[] = [];
   totalV         : number = 0;
+  qrValue        : string = '';
   facturar       : boolean = true;
   ventaSave!     : TVenta;
   aviso          : string[] = [];
@@ -217,10 +218,19 @@ export class FacturaComponent implements OnInit {
         ?''
         :this.aviso.push('EL PRECIO DEBE ESTAR EN EL DE RANGO DE Bs.'+psel.precioMinimo+' Y Bs.'+psel.precioMaximo);
       (psav.cantidad>0)?'':this.aviso.push('LACANTIDAD A VENDER DEBE SER MAYOR A CERO');
+      let k = this.productosVende.length;
+      for (let i = 0; i < k; i++) {
+        if(this.productosVende[i].producto === psel.producto && this.productosVende[i].unidad === psel.unidad){
+          this.aviso.push('EL PRODUCTO YA ESTA EN LISTA DE COMPRAS');
+          break;
+        }
+      }
     }
     else{ 
       this.aviso.push('ERROR!! DEBE SELECCIONAR UN PRODUCTO');
     }
+
+    
   }
 
   agregar(){
