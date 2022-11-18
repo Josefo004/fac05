@@ -404,7 +404,7 @@
       "estado": true,
       "puntoVentaId": 1,
       "id_usuario": 2,
-      "borrado": false
+      "borrado": true
     },
     {
       "id": 20,
@@ -414,6 +414,17 @@
       "nroDocumento": "121545",
       "estado": true,
       "puntoVentaId": 3,
+      "id_usuario": 2,
+      "borrado": false
+    },
+    {
+      "id": 21,
+      "razonSocial": "CESSA",
+      "fechHora": "2022-11-15T20:21:28.793Z",
+      "monto": 30,
+      "nroDocumento": "22222",
+      "estado": true,
+      "puntoVentaId": 1,
       "id_usuario": 2,
       "borrado": false
     }
@@ -2344,6 +2355,16 @@
       "puntoVentaId": 3,
       "ventaId": 20,
       "id": 30
+    },
+    {
+      "producto": "HORTALIZAS ( ARVEJAS )",
+      "unidad": "ARROBA",
+      "precioUnitario": 30,
+      "cantidad": "1",
+      "sucursalId": 1,
+      "puntoVentaId": 1,
+      "ventaId": 21,
+      "id": 31
     }
   ]
 }

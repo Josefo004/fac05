@@ -22,18 +22,23 @@ export class NavegarService {
   }
 
   private apiUrl : string = environment.apiUrl;
+  private apiJose   : string = environment.apiJose;
   //private urlJulito : string = environment.apiJulito;
   
 
   constructor(private http: HttpClient) { }
   
   allSucursales(){
-    const urlSucursal = `${this.apiUrl}/sucursales`;
+    //const urlSucursal = `${this.apiUrl}/sucursales`;
+    const urlSucursal = `${this.apiJose}/sucursal/lista`;
+    console.log(urlSucursal);
     return this.http.get<Tsucursal[]>(urlSucursal);
   }
   
   allPuntoVentas(idS: number){
-    const urlPuntoVenta = `${this.apiUrl}/puntoVentas?sucursalId=${idS}`;
+    //const urlPuntoVenta = `${this.apiUrl}/puntoVentas?sucursalId=${idS}`;
+    const urlPuntoVenta = `${this.apiJose}/puntoventa/sucursal/${idS}`;
+    console.log(urlPuntoVenta);
     return this.http.get<TpuntoVenta[]>(urlPuntoVenta);
   }
 

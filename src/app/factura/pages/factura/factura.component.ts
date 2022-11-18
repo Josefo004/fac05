@@ -115,7 +115,7 @@ export class FacturaComponent implements OnInit {
   }
   
   guardar_RS(){
-    const newRazon : TRazonSocial={
+    const newRazon : TRazonSocial={ //modificar de acuerdo al json de JOSEL
       razonSocial:  this.razonSocial.razonSocial.toUpperCase().trim(),
       nroDocumento: this.razonSocial.nroDocumento.toUpperCase().trim(),
       tipoDoc:      this.razonSocial.tipoDoc.toUpperCase().trim()
